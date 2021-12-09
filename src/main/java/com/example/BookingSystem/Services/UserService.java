@@ -1,8 +1,9 @@
 package com.example.BookingSystem.Services;
 
 import com.example.BookingSystem.Exceptions.LoginFailureException;
+import com.example.BookingSystem.Exceptions.UserRegistrationException;
 import com.example.BookingSystem.Models.User;
-import com.example.BookingSystem.Repositories.LoginRepository;
+import com.example.BookingSystem.Repositories.UserRepository;
 import com.example.BookingSystem.Utils.PasswordUtils;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,12 +13,12 @@ import java.util.Optional;
 
 @Service
 @AllArgsConstructor(onConstructor = @__(@Autowired))
-public class LoginService {
+public class UserService {
 
-    private final LoginRepository loginRepository;
+    private final UserRepository userRepository;
 
     public Boolean login(String username, String password) throws LoginFailureException {
-        Optional<User> userOptional = loginRepository.findUserByUsername(username);
+        Optional<User> userOptional = userRepository.findUserByUsername(username);
         if (userOptional.isPresent()) {
             User user = userOptional.get();
             if (PasswordUtils.verifyPassword(password, user.getPassword(), user.getSalt())) {
@@ -27,6 +28,15 @@ public class LoginService {
             }
         } else {
             throw new LoginFailureException("The user does not exist");
+        }
+    }
+
+    public void addUser(User user) throws UserRegistrationException {
+        Optional<User> userOptional = userRepository.findUserByUsername(user.getUsername());
+        if (userOptional.isPresent()) {
+            throw new UserRegistrationException("The username is already taken");
+        } else {
+            userRepository.save(user);
         }
     }
 }
