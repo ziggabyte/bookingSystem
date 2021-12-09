@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(path = "/api")
+@CrossOrigin("*")
 @AllArgsConstructor(onConstructor = @__(@Autowired))
 public class BookingController {
 
