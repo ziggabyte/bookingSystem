@@ -1,4 +1,4 @@
-package com.example.BookingSystem.Booking;
+package com.example.BookingSystem.Models;
 
 import lombok.Data;
 
