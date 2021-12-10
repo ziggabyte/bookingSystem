@@ -34,9 +34,15 @@ public class UserService {
     public void addUser(User user) throws UserRegistrationException {
         Optional<User> userOptional = userRepository.findUserByUsername(user.getUsername());
         if (userOptional.isPresent()) {
+            System.out.println("user optional name: " + userOptional.get().getUsername());
             throw new UserRegistrationException("The username is already taken");
         } else {
-            userRepository.save(user);
+            userOptional = userRepository.findUserByEmail(user.getEmail());
+            if (userOptional.isPresent()) {
+                throw new UserRegistrationException("This email is already registered");
+            } else {
+                userRepository.save(new User(user.getUsername(), user.getPassword(), user.getName(), user.getAddress(), user.getEmail()));
+            }
         }
     }
 }

@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping
+@RequestMapping(path = "/api")
 @CrossOrigin("*")
 @AllArgsConstructor(onConstructor = @__(@Autowired))
 public class UserController {
@@ -24,8 +24,7 @@ public class UserController {
     }
 
     @PostMapping(path="/addUser")
-    public void addUser(@RequestBody User requestUser) throws UserRegistrationException {
-        User user = new User(requestUser.getUsername(), requestUser.getPassword());
+    public void addUser(@RequestBody User user) throws UserRegistrationException {
         userService.addUser(user);
     }
 }
