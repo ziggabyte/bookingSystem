@@ -27,11 +27,17 @@ public class User {
     private String username;
     private String password;
     private String salt;
+    private String name;
+    private String address;
+    private String email;
 
-    public User(String username, String password) {
+    public User(String username, String password, String name, String address, String email) {
         this.username = username;
         this.salt = PasswordUtils.generateSalt(170).get(); //170 ist för 512 pga fick inte plats med mer i db
         this.password = PasswordUtils.hashPassword(password, salt).get();
+        this.name = name;
+        this.address = address;
+        this.email = email;
     }
 
 }

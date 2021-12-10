@@ -1,23 +1,30 @@
 package com.example.BookingSystem.Controllers;
 
 import com.example.BookingSystem.Exceptions.LoginFailureException;
-import com.example.BookingSystem.Services.LoginService;
+import com.example.BookingSystem.Exceptions.UserRegistrationException;
+import com.example.BookingSystem.Models.User;
+import com.example.BookingSystem.Services.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping
+@RequestMapping(path = "/api")
 @CrossOrigin("*")
 @AllArgsConstructor(onConstructor = @__(@Autowired))
-public class LoginController {
+public class UserController {
 
-    private final LoginService loginService;
+    private final UserService userService;
 
     @PostMapping(path="/login")
     public Boolean login(
             @RequestParam("username") String username,
             @RequestParam("password") String password) throws LoginFailureException {
-        return loginService.login(username, password);
+        return userService.login(username, password);
+    }
+
+    @PostMapping(path="/addUser")
+    public void addUser(@RequestBody User user) throws UserRegistrationException {
+        userService.addUser(user);
     }
 }
