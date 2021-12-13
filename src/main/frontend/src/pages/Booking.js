@@ -4,11 +4,11 @@ import { TextField, NativeSelect, FormControl, Button } from "@mui/material";
 import axios from "axios";
 
 export default function Booking() {
-  const [userName, setUserName] = React.useState("");
-  const [userEmail, setUserEmail] = React.useState("");
-  const [userAddress, setUserAddress] = React.useState("");
+  const [username, setUsername] = React.useState("");
+  const [email, setEmail] = React.useState("");
+  const [address, setAddress] = React.useState("");
   const [serviceChoice, setServiceChoice] = React.useState("");
-  const [userDateTime, setUserDateTime] = React.useState("");
+  const [dateTime, setDateTime] = React.useState("");
 
   const config = {
     headers: {
@@ -39,9 +39,9 @@ export default function Booking() {
       .post(
         "http://localhost:8080/api/addBooking",
         {
-          name: userName,
-          email: userEmail,
-          address: userAddress,
+          name: username,
+          email: email,
+          address: address,
           date: "date",
           time: "time",
           service: service,
@@ -53,15 +53,15 @@ export default function Booking() {
 
     alert(
       "Thank you " +
-        userName +
+        username +
         " for your reservation of " +
         service +
         " at " +
-        userAddress +
+        address +
         " on the " +
-        userDateTime +
+        dateTime +
         ". A confirmation will be sent to " +
-        userEmail
+        email
     );
 
     window.location.reload(false);
@@ -78,7 +78,7 @@ export default function Booking() {
             variant="standard"
             color="primary"
             sx={{ minWidth: 250 }}
-            onChange={(event) => setUserName(event.target.value)}
+            onChange={(event) => setUsername(event.target.value)}
           />
         </div>
 
@@ -89,7 +89,7 @@ export default function Booking() {
             variant="standard"
             color="primary"
             sx={{ minWidth: 250 }}
-            onChange={(event) => setUserEmail(event.target.value)}
+            onChange={(event) => setEmail(event.target.value)}
           />
         </div>
 
@@ -100,7 +100,7 @@ export default function Booking() {
             variant="standard"
             color="primary"
             sx={{ minWidth: 250 }}
-            onChange={(event) => setUserAddress(event.target.value)}
+            onChange={(event) => setAddress(event.target.value)}
           />
         </div>
 
@@ -134,12 +134,12 @@ export default function Booking() {
             InputLabelProps={{
               shrink: true,
             }}
-            onChange={(event) => setUserDateTime(event.target.value)}
+            onChange={(event) => setDateTime(event.target.value)}
           />
         </div>
 
         <div>
-          <Button id="formButton" type="submit">
+          <Button id="formButton" type="submit" variant="contained">
             Enter
           </Button>
         </div>
