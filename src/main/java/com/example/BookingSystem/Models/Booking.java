@@ -19,6 +19,8 @@ public class Booking {
             generator = "booking_sequence"
     )
     private final Long id;
+    private final String name;
+    private final String address;
     private final String date;
     private final String time;
     private final String service;
