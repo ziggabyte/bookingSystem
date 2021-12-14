@@ -31,7 +31,7 @@ public class User {
     private String name;
     private String address;
     private String email;
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Booking> bookings;
 
     public User(String username, String password, String name, String address, String email) {
