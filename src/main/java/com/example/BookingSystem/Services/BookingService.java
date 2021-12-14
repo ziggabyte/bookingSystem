@@ -23,4 +23,8 @@ public class BookingService {
     public Optional<List<Booking>> getBookingsByUserId(Long customerId) {
         return bookingRepository.findByUserId(customerId);
     }
+
+    public void deleteBooking(Long bookingId) {
+        bookingRepository.deleteById(bookingId);
+    }
 }

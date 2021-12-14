@@ -27,4 +27,9 @@ public class BookingController {
         return bookingService.getBookingsByUserId(userId)
                 .orElseThrow(() -> new BookingException("Customer has no bookings"));
     }
+
+    @DeleteMapping(path = "/deleteBooking/{bookingId}")
+    public void deleteBookingById(@PathVariable Long bookingId) {
+        bookingService.deleteBooking(bookingId);
+    }
 }
