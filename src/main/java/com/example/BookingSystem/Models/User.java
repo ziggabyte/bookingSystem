@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table
@@ -30,6 +31,8 @@ public class User {
     private String name;
     private String address;
     private String email;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Booking> bookings;
 
     public User(String username, String password, String name, String address, String email) {
         this.username = username;

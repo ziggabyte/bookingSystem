@@ -3,6 +3,7 @@ package com.example.BookingSystem.Services;
 import com.example.BookingSystem.Exceptions.LoginFailureException;
 import com.example.BookingSystem.Exceptions.UserRegistrationException;
 import com.example.BookingSystem.Models.User;
+import com.example.BookingSystem.Models.UserForClient;
 import com.example.BookingSystem.Repositories.UserRepository;
 import com.example.BookingSystem.Utils.PasswordUtils;
 import lombok.AllArgsConstructor;
@@ -37,8 +38,23 @@ public class UserService {
             if (userOptional.isPresent()) {
                 throw new UserRegistrationException("This email is already registered");
             } else {
-                userRepository.save(new User(user.getUsername(), user.getPassword(), user.getName(), user.getAddress(), user.getEmail()));
+                userRepository.save(new User(
+                        user.getUsername(),
+                        user.getPassword(),
+                        user.getName(),
+                        user.getAddress(),
+                        user.getEmail()));
             }
         }
+    }
+
+    public UserForClient getUser(Long userId) {
+        Optional<User> user = userRepository.findById(userId);
+        return user.map(value -> new UserForClient(
+                value.getId(),
+                value.getUsername(),
+                value.getName(),
+                value.getAddress(),
+                value.getEmail())).orElse(null);
     }
 }

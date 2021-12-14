@@ -19,10 +19,10 @@ public class Booking {
             generator = "booking_sequence"
     )
     private final Long id;
-    private final String name;
-    private final String email;
-    private final String address;
     private final String date;
     private final String time;
     private final String service;
+    @ManyToOne(optional = false)
+    @JoinColumn(nullable = false)
+    private final User user;
 }
