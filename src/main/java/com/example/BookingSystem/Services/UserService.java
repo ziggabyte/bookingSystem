@@ -17,18 +17,14 @@ public class UserService {
 
     private final UserRepository userRepository;
 
-    public Boolean login(String username, String password) throws LoginFailureException {
-        Optional<User> userOptional = userRepository.findUserByUsername(username);
-        if (userOptional.isPresent()) {
-            User user = userOptional.get();
-            if (PasswordUtils.verifyPassword(password, user.getPassword(), user.getSalt())) {
-                return true;
-            } else {
-                throw new LoginFailureException("The password is incorrect");
+    public Optional<User> login(String username, String password) throws LoginFailureException {
+        Optional<User> user = userRepository.findUserByUsername(username);
+        if (user.isPresent()) {
+            if (PasswordUtils.verifyPassword(password, user.get().getPassword(), user.get().getSalt())) {
+                return user;
             }
-        } else {
-            throw new LoginFailureException("The user does not exist");
         }
+        return Optional.empty();
     }
 
     public void addUser(User user) throws UserRegistrationException {

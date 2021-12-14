@@ -17,10 +17,10 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping(path="/login")
-    public Boolean login(
-            @RequestParam("username") String username,
-            @RequestParam("password") String password) throws LoginFailureException {
-        return userService.login(username, password);
+    public User login(@RequestParam(name = "username") String username,
+                         @RequestParam(name = "password") String password) throws LoginFailureException {
+        return userService.login(username, password)
+                .orElseThrow(() -> new LoginFailureException("Username or password is incorrect."));
     }
 
     @PostMapping(path="/addUser")
