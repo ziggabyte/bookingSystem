@@ -1,7 +1,11 @@
 package com.example.BookingSystem.Exceptions;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
+
+@Getter
+@AllArgsConstructor
 public class LoginFailureException extends Exception{
-    public LoginFailureException(String message) {
-        super(message);
-    }
+    private final String message;
 }

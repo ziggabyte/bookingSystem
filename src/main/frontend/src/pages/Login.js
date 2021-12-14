@@ -13,27 +13,28 @@ export default function Login() {
     },
   };
 
-  const loginUser = (event) => {
+    const loginUser = (event) => {
     event.preventDefault();
-
     axios
       .post(
-        "http://localhost:8080/api/login",
-        {
-          username: username,
-          password: password,
-        },
+          "http://localhost:8080/api/login",
+          {},
+          {params: {username, password}},
         config
       )
-      .then((res) => console.log("res: " + res))
-      .catch((err) => console.log(err));
-    window.location.reload(false);
-  };
+      .then((response) => rerouteIfSuccessful(response.data))
+      .catch((error) => console.log(error))
+    };
+    
+    const rerouteIfSuccessful = (data) => {
+        
+        console.log(data)
+    }
 
   return (
     <div>
       <h1>Welcome</h1>
-      <form id="loginForm" action="/booking" onSubmit={loginUser}>
+      <form id="loginForm" onSubmit={(event) => loginUser(event)}>
         <div>
           <TextField
             id="username"
