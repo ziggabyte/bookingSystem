@@ -1,20 +1,46 @@
 import "../App.css";
 import React from "react";
-import { Button, TextField } from "@mui/material";
-import loginUser from "../api/loginApi";
+import { TextField } from "@mui/material";
 import { CustomButton } from "../App";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 export default function Login() {
   const [username, setUsername] = React.useState("");
   const [password, setPassword] = React.useState("");
 
+  const config = {
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+    },
+  };
+
+  const loginUser = (event) => {
+    event.preventDefault();
+
+    axios
+      .post(
+        "http://localhost:8080/api/login",
+        {},
+        { params: { username, password } },
+        config
+      )
+      .then((response) => rerouteIfSuccessful(response.data))
+      .catch((error) => console.log(error));
+  };
+
+  const navigate = useNavigate();
+
+  const rerouteIfSuccessful = (data) => {
+    console.log("loginapi data: " + data);
+
+    navigate("/customerpage", { state: data });
+  };
+
   return (
     <div id="pageDiv">
       <h1>Welcome</h1>
-      <form
-        id="loginForm"
-        onSubmit={(event) => loginUser(event, username, password)}
-      >
+      <form id="loginForm" onSubmit={(event) => loginUser(event)}>
         <div>
           <TextField
             id="username"
