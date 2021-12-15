@@ -1,7 +1,11 @@
 import "../App.css";
 import React from "react";
-import { TextField, NativeSelect, FormControl, Button } from "@mui/material";
-import axios from "axios";
+import { TextField, NativeSelect, FormControl } from "@mui/material";
+import { Link } from "react-router-dom";
+import LogoutIcon from "@mui/icons-material/Logout";
+import { getCurrentDate } from "../functions/cleanPostRequest";
+import makeBooking from "../api/makeBookingApi";
+import { CustomButton } from "../App";
 
 export default function Booking() {
   const [username, setUsername] = React.useState("");
@@ -10,73 +14,21 @@ export default function Booking() {
   const [serviceChoice, setServiceChoice] = React.useState("");
   const [dateTime, setDateTime] = React.useState("");
 
-  const config = {
-    headers: {
-      "Access-Control-Allow-Origin": "*",
-    },
-  };
-
-  const makeBooking = (event) => {
-    event.preventDefault();
-
-    let service;
-
-    if (serviceChoice === 2) {
-      service = "Topp Städning";
-    } else if (serviceChoice === 3) {
-      service = "Diamant Städning";
-    } else if (serviceChoice === 4) {
-      service = "Fönstertvätt";
-    } else {
-      service = "Basic Städning";
-    }
-
-    /*if (!userDateTime.startsWith("2")) {
-      userDateTime = getCurrentDate();
-    }*/
-
-    axios
-      .post(
-        "http://localhost:8080/api/addBooking",
-        {
-          name: username,
-          email: email,
-          address: address,
-          date: "date",
-          time: "time",
-          service: service,
-        },
-        config
-      )
-      .then((res) => console.log(res))
-      .catch((err) => console.log(err));
-
-    alert(
-      "Thank you " +
-        username +
-        " for your reservation of " +
-        service +
-        " at " +
-        address +
-        " on the " +
-        dateTime +
-        ". A confirmation will be sent to " +
-        email
-    );
-
-    window.location.reload(false);
-  };
-
   return (
-    <div>
+    <div id="pageDiv">
       <h1>Booking</h1>
-      <form id="bookingForm" onSubmit={makeBooking} action="/">
+      <form
+        id="bookingForm"
+        onSubmit={(event) =>
+          makeBooking(event, username, email, address, serviceChoice, dateTime)
+        }
+      >
         <div>
           <TextField
             id="uName"
             label="Name"
             variant="standard"
-            color="primary"
+            color="success"
             sx={{ minWidth: 250 }}
             onChange={(event) => setUsername(event.target.value)}
           />
@@ -87,7 +39,7 @@ export default function Booking() {
             id="uEmail"
             label="Email"
             variant="standard"
-            color="primary"
+            color="success"
             sx={{ minWidth: 250 }}
             onChange={(event) => setEmail(event.target.value)}
           />
@@ -98,7 +50,7 @@ export default function Booking() {
             id="uAddress"
             label="Address"
             variant="standard"
-            color="primary"
+            color="success"
             sx={{ minWidth: 250 }}
             onChange={(event) => setAddress(event.target.value)}
           />
@@ -113,7 +65,7 @@ export default function Booking() {
                 name: "service",
                 id: "uncontrolled-native",
               }}
-              color="primary"
+              color="success"
               onChange={(event) => setServiceChoice(event.target.value)}
             >
               <option value={1}>Basic Städning</option>
@@ -139,26 +91,14 @@ export default function Booking() {
         </div>
 
         <div>
-          <Button id="formButton" type="submit" variant="contained">
+          <CustomButton id="formButton" type="submit" variant="contained">
             Enter
-          </Button>
+          </CustomButton>
         </div>
       </form>
+      <Link to="/" id="logoutLink">
+        <LogoutIcon id="logoutIcon" />
+      </Link>
     </div>
   );
-}
-
-export function getCurrentDate() {
-  let date = new Date();
-  let day = date.getDate();
-  let month = date.getMonth() + 1;
-  let year = date.getFullYear();
-  let hour = date.getHours();
-  let minute = date.getMinutes();
-
-  return `${year}-${month < 10 ? `0${month}` : `${month}`}-${
-    day < 10 ? `0${day}` : `${day}`
-  }T${hour < 10 ? `0${hour}` : `${hour}`}:${
-    minute < 10 ? `0${minute}` : `${minute}`
-  }`;
 }

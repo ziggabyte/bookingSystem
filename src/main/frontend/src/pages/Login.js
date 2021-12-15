@@ -1,46 +1,26 @@
 import "../App.css";
 import React from "react";
 import { Button, TextField } from "@mui/material";
-import axios from "axios";
+import loginUser from "../api/loginApi";
+import { CustomButton } from "../App";
 
 export default function Login() {
   const [username, setUsername] = React.useState("");
   const [password, setPassword] = React.useState("");
 
-  const config = {
-    headers: {
-      "Access-Control-Allow-Origin": "*",
-    },
-  };
-
-    const loginUser = (event) => {
-    event.preventDefault();
-    axios
-      .post(
-          "http://localhost:8080/api/login",
-          {},
-          {params: {username, password}},
-        config
-      )
-      .then((response) => rerouteIfSuccessful(response.data))
-      .catch((error) => console.log(error))
-    };
-    
-    const rerouteIfSuccessful = (data) => {
-        
-        console.log(data)
-    }
-
   return (
-    <div>
+    <div id="pageDiv">
       <h1>Welcome</h1>
-      <form id="loginForm" onSubmit={(event) => loginUser(event)}>
+      <form
+        id="loginForm"
+        onSubmit={(event) => loginUser(event, username, password)}
+      >
         <div>
           <TextField
             id="username"
             label="Username"
             variant="standard"
-            color="primary"
+            color="success"
             sx={{ minWidth: 250 }}
             onChange={(event) => setUsername(event.target.value)}
           />
@@ -51,24 +31,23 @@ export default function Login() {
             id="password"
             label="Password"
             variant="standard"
-            color="warning"
+            color="success"
             sx={{ minWidth: 250 }}
             onChange={(event) => setPassword(event.target.value)}
           />
         </div>
 
         <div>
-          <Button id="formButton" type="submit" variant="contained">
+          <CustomButton id="formButton" type="submit" variant="contained">
             Enter
-          </Button>
+          </CustomButton>
         </div>
-
-        <p id="or">or</p>
       </form>
+      <p id="or">or</p>
       <form action="/register">
-        <Button id="registerButton" type="submit" variant="contained">
+        <CustomButton id="registerButton" type="submit" variant="contained">
           Register New User
-        </Button>
+        </CustomButton>
       </form>
     </div>
   );

@@ -1,7 +1,11 @@
 import "../App.css";
 import React from "react";
 import { Button, TextField } from "@mui/material";
-import axios from "axios";
+import { Link } from "react-router-dom";
+import LogoutIcon from "@mui/icons-material/Logout";
+import registerNewUser from "../api/registerNewUserApi";
+import { styled } from "@mui/material/styles";
+import { CustomButton } from "../App";
 
 export default function Register() {
   const [username, setUsername] = React.useState("");
@@ -10,45 +14,20 @@ export default function Register() {
   const [address, setAddress] = React.useState("");
   const [email, setEmail] = React.useState("");
 
-  const config = {
-    headers: {
-      "Access-Control-Allow-Origin": "*",
-    },
-  };
-
-  const registerNewUser = (event) => {
-    event.preventDefault();
-
-    axios
-      .post(
-        "http://localhost:8080/api/addUser",
-        {
-          username: username,
-          password: password,
-          name: name,
-          address: address,
-          email: email,
-        },
-        config
-      )
-      .then((res) => console.log(res))
-      .catch((err) => console.log(err));
-
-    alert("User: " + username + " has been registered. Welcome!");
-
-    window.location.reload(false);
-  };
-
   return (
-    <div>
+    <div id="pageDiv">
       <h1>Register</h1>
-      <form action="/" onSubmit={registerNewUser}>
+      <form
+        onSubmit={(event) =>
+          registerNewUser(event, username, password, name, address, email)
+        }
+      >
         <div>
           <TextField
             id="username"
             label="Username"
             variant="standard"
-            color="primary"
+            color="success"
             sx={{ minWidth: 250 }}
             onChange={(event) => setUsername(event.target.value)}
           />
@@ -59,7 +38,7 @@ export default function Register() {
             id="password"
             label="Password"
             variant="standard"
-            color="warning"
+            color="success"
             sx={{ minWidth: 250 }}
             onChange={(event) => setPassword(event.target.value)}
           />
@@ -70,7 +49,7 @@ export default function Register() {
             id="name"
             label="Name"
             variant="standard"
-            color="primary"
+            color="success"
             sx={{ minWidth: 250 }}
             onChange={(event) => setName(event.target.value)}
           />
@@ -81,7 +60,7 @@ export default function Register() {
             id="address"
             label="Address"
             variant="standard"
-            color="primary"
+            color="success"
             sx={{ minWidth: 250 }}
             onChange={(event) => setAddress(event.target.value)}
           />
@@ -92,18 +71,21 @@ export default function Register() {
             id="email"
             label="Email"
             variant="standard"
-            color="primary"
+            color="success"
             sx={{ minWidth: 250 }}
             onChange={(event) => setEmail(event.target.value)}
           />
         </div>
 
         <div>
-          <Button id="formButton" type="submit" variant="contained">
+          <CustomButton id="formButton" type="submit" variant="contained">
             Register
-          </Button>
+          </CustomButton>
         </div>
       </form>
+      <Link to="/" id="logoutLink">
+        <LogoutIcon id="logoutIcon" />
+      </Link>
     </div>
   );
 }
