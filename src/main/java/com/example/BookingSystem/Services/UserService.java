@@ -23,7 +23,7 @@ public class UserService {
         Optional<User> user = userRepository.findUserByUsername(username);
         if (user.isPresent()) {
             if (PasswordUtils.verifyPassword(password, user.get().getPassword(), user.get().getSalt())) {
-                return Optional.of(new PermissionPackage(user.get().getPermission()));
+                return Optional.of(new PermissionPackage(user.get().getPermission(), user.get().getId()));
             }
         }
         return Optional.empty();

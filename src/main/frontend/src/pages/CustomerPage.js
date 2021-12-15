@@ -1,17 +1,41 @@
 import "../App.css";
-import React from "react";
-import { Button } from "@mui/material";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { CustomButton } from "../App";
+import axios from "axios";
 
 export default function CustomerPage() {
+    const { state } = useLocation()
+    const { userId } = state
+
+    const [name, setName] = useState("")
+    const [address, setAddress] = useState("")
+
+    const config = {
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+        },
+    };
+
+    useEffect(() => {
+        axios.get(
+            `http://localhost:8080/api/getUser/${userId}`,
+            config
+        )
+            .then(({ data }) => {
+                setName(data.name)
+                setAddress(data.address)
+            })
+        .catch((error) => console.log(error))
+    })
+
   return (
     <div id="pageDiv">
-      <h1>Your Profile</h1>
+      <h1>{name}'s profile</h1>
 
       <ul id="profileInfoList">
-        <li>Address: Pildammsvägen 95c</li>
+        <li>Address: {address}</li>
         <li>Something: </li>
       </ul>
 
