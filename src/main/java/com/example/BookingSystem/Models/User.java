@@ -33,14 +33,16 @@ public class User {
     private String email;
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Booking> bookings;
+    private Permission permission;
 
-    public User(String username, String password, String name, String address, String email) {
+    public User(String username, String password, String name, String address, String email, Permission permission) {
         this.username = username;
         this.salt = PasswordUtils.generateSalt(170).get(); //170 ist för 512 pga fick inte plats med mer i db
         this.password = PasswordUtils.hashPassword(password, salt).get();
         this.name = name;
         this.address = address;
         this.email = email;
+        this.permission = permission;
     }
 
 }

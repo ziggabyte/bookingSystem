@@ -2,6 +2,7 @@ package com.example.BookingSystem;
 
 import com.example.BookingSystem.Controllers.UserController;
 import com.example.BookingSystem.Exceptions.UserRegistrationException;
+import com.example.BookingSystem.Models.Permission;
 import com.example.BookingSystem.Models.User;
 import com.example.BookingSystem.Repositories.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -33,7 +34,8 @@ public class UserRegistrationTests {
                 "myPassword",
                 "Clean Freak",
                 "23 Clean Street, Birmingham",
-                "cleanfreak@email.com");
+                "cleanfreak@email.com",
+                Permission.CUSTOMER);
     }
 
     //Detta test failar för att jag inte vet hur databasen ska rensas från dummyUser när email-testet körs före
@@ -52,7 +54,8 @@ public class UserRegistrationTests {
                 "Testpassword",
                 null,
                 null,
-                null);
+                null,
+                Permission.CUSTOMER);
         assertThrows(UserRegistrationException.class, () -> userController.addUser(existingUser));
     }
 
@@ -64,7 +67,8 @@ public class UserRegistrationTests {
                 "aPassword",
                 "Neat Nancy",
                 "Testaddress 34",
-                dummyUser.getEmail());
+                dummyUser.getEmail(),
+                Permission.CUSTOMER);
         assertThrows(UserRegistrationException.class, () -> userController.addUser(sameEmailUser));
     }
 }

@@ -1,5 +1,6 @@
 package com.example.BookingSystem;
 
+import com.example.BookingSystem.Models.Permission;
 import com.example.BookingSystem.Models.User;
 import com.example.BookingSystem.Repositories.UserRepository;
 import org.springframework.boot.CommandLineRunner;
@@ -17,7 +18,8 @@ public class UserConfig {
                     "Testpassword",
                     "Test Testsson",
                     "Testgatan 12, Malmö",
-                    "test@gmail.com");
+                    "test@gmail.com",
+                    Permission.CUSTOMER);
             repository.save(testUser);
         };
     }

@@ -2,6 +2,7 @@ package com.example.BookingSystem.Services;
 
 import com.example.BookingSystem.Exceptions.LoginFailureException;
 import com.example.BookingSystem.Exceptions.UserRegistrationException;
+import com.example.BookingSystem.Models.PermissionPackage;
 import com.example.BookingSystem.Models.User;
 import com.example.BookingSystem.Models.UserForClient;
 import com.example.BookingSystem.Repositories.UserRepository;
@@ -18,11 +19,11 @@ public class UserService {
 
     private final UserRepository userRepository;
 
-    public Optional<User> login(String username, String password) throws LoginFailureException {
+    public Optional<PermissionPackage> login(String username, String password) throws LoginFailureException {
         Optional<User> user = userRepository.findUserByUsername(username);
         if (user.isPresent()) {
             if (PasswordUtils.verifyPassword(password, user.get().getPassword(), user.get().getSalt())) {
-                return user;
+                return Optional.of(new PermissionPackage(user.get().getPermission()));
             }
         }
         return Optional.empty();
@@ -31,7 +32,6 @@ public class UserService {
     public void addUser(User user) throws UserRegistrationException {
         Optional<User> userOptional = userRepository.findUserByUsername(user.getUsername());
         if (userOptional.isPresent()) {
-            System.out.println("user optional name: " + userOptional.get().getUsername());
             throw new UserRegistrationException("The username is already taken");
         } else {
             userOptional = userRepository.findUserByEmail(user.getEmail());
@@ -43,7 +43,8 @@ public class UserService {
                         user.getPassword(),
                         user.getName(),
                         user.getAddress(),
-                        user.getEmail()));
+                        user.getEmail(),
+                        user.getPermission()));
             }
         }
     }

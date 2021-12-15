@@ -2,6 +2,7 @@ package com.example.BookingSystem.Controllers;
 
 import com.example.BookingSystem.Exceptions.LoginFailureException;
 import com.example.BookingSystem.Exceptions.UserRegistrationException;
+import com.example.BookingSystem.Models.PermissionPackage;
 import com.example.BookingSystem.Models.User;
 import com.example.BookingSystem.Models.UserForClient;
 import com.example.BookingSystem.Services.UserService;
@@ -18,8 +19,8 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping(path="/login")
-    public User login(@RequestParam(name = "username") String username,
-                         @RequestParam(name = "password") String password) throws LoginFailureException {
+    public PermissionPackage login(@RequestParam(name = "username") String username,
+                                   @RequestParam(name = "password") String password) throws LoginFailureException {
         return userService.login(username, password)
                 .orElseThrow(() -> new LoginFailureException("Username or password is incorrect."));
     }
