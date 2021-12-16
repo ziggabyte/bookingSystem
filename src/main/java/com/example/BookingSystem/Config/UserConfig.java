@@ -1,4 +1,4 @@
-package com.example.BookingSystem;
+package com.example.BookingSystem.Config;
 
 import com.example.BookingSystem.Models.Permission;
 import com.example.BookingSystem.Models.User;
@@ -13,7 +13,7 @@ import java.util.List;
 public class UserConfig {
 
     @Bean
-    CommandLineRunner commandLineRunner(UserRepository repository) {
+    CommandLineRunner commandLineRunnerUser(UserRepository repository) {
         return args -> {
             User testCustomer = new User(
                     "Testuser",
@@ -46,7 +46,7 @@ public class UserConfig {
                     "employee2@clean.com",
                     Permission.EMPLOYEE
             );
-            repository.saveAll( List.of(testCustomer, testAdmin));
+            repository.saveAll( List.of(testCustomer, testAdmin, testEmployee1, testEmployee2));
         };
     }
 }
