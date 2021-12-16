@@ -1,6 +1,7 @@
 package com.example.BookingSystem.Services;
 
 import com.example.BookingSystem.Models.Booking;
+import com.example.BookingSystem.Models.BookingStatus;
 import com.example.BookingSystem.Repositories.BookingRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,5 +31,11 @@ public class BookingService {
 
     public List<Booking> getAllBookings() {
         return bookingRepository.findAll();
+    }
+
+    public void assignBooking(Long bookingId, Long cleanerId) {
+        Booking booking = bookingRepository.getById(bookingId);
+        booking.setStatus(BookingStatus.ASSIGNED);
+        booking.setCleanerId(cleanerId);
     }
 }

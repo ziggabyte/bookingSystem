@@ -22,6 +22,11 @@ public class BookingController {
         bookingService.addNewBooking(booking);
     }
 
+    @PostMapping(path = "/assignBooking")
+    public void setBookingAssigned(@RequestParam Long bookingId, @RequestParam Long cleanerId) {
+        bookingService.assignBooking(bookingId, cleanerId);
+    }
+
     @GetMapping(path = "/getAllBookings")
     public List<Booking> getAllBookings() throws BookingException {
         return bookingService.getAllBookings();
