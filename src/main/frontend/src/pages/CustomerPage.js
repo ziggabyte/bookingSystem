@@ -54,13 +54,11 @@ export default function CustomerPage() {
       </ul>
 
       <div id="profileBookingsList">
-        { bookings.length > 0 ? bookings.forEach(booking => {
-            <BookingCard booking={booking} />
-        }) :
+              {bookings.length > 0 ? bookings.map((booking, index) => 
+                  <BookingCard booking={booking} key={index}/>
+              ) :
             <Card>
-                <CardContent>
-                    <Typography>You have no bookings</Typography>
-                </CardContent>
+                <Typography>You have no bookings</Typography>
             </Card>
         }
       </div>

@@ -6,9 +6,9 @@ import javax.persistence.*;
 
 @Entity
 @Table
-@AllArgsConstructor
 @Getter
 @Setter
+@NoArgsConstructor
 public class Booking {
     @Id
     @SequenceGenerator(
@@ -20,15 +20,26 @@ public class Booking {
             strategy = GenerationType.SEQUENCE,
             generator = "booking_sequence"
     )
-    private final Long id;
-    private final String name;
-    private final String address;
-    private final String date;
-    private final String time;
-    private final String service;
+    private Long id;
+    private String name;
+    private String address;
+    private String date;
+    private String time;
+    private String service;
     @ManyToOne(optional = false)
     @JoinColumn(nullable = false)
-    private final User user;
+    private User user;
     private BookingStatus status;
     private Long cleanerId;
+
+    public Booking(String name, String address, String date, String time, String service, User user) {
+        this.name = name;
+        this.address = address;
+        this.date = date;
+        this.time = time;
+        this.service = service;
+        this.user = user;
+        this.status = BookingStatus.UNASSIGNED;
+        this.cleanerId = null;
+    }
 }
