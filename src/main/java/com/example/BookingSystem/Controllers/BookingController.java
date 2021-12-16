@@ -22,6 +22,11 @@ public class BookingController {
         bookingService.addNewBooking(booking);
     }
 
+    @GetMapping(path = "/getAllBookings")
+    public List<Booking> getAllBookings() throws BookingException {
+        return bookingService.getAllBookings();
+    }
+
     @GetMapping(path = "/getBookings/{userId}")
     public List<Booking> getBookingsByUserId(@PathVariable Long userId) throws BookingException {
         return bookingService.getBookingsByUserId(userId)
