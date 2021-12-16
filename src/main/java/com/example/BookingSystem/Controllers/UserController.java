@@ -10,6 +10,8 @@ import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping(path = "/api")
 @CrossOrigin("*")
@@ -33,5 +35,10 @@ public class UserController {
     @GetMapping(path = "/getUser/{userId}")
     public UserForClient getUser(@PathVariable Long userId) {
         return userService.getUser(userId);
+    }
+
+    @GetMapping(path = "/getAllEmployees")
+    public List<UserForClient> getAllEmployees() {
+        return userService.getAllEmployees();
     }
 }

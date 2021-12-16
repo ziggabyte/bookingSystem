@@ -11,7 +11,9 @@ import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor(onConstructor = @__(@Autowired))
@@ -57,5 +59,17 @@ public class UserService {
                 value.getName(),
                 value.getAddress(),
                 value.getEmail())).orElse(null);
+    }
+
+    public List<UserForClient> getAllEmployees() {
+        List<User> employees = userRepository.findAllByPermission("EMPLOYEE");
+        return employees.stream()
+                .map(employee -> new UserForClient(
+                        employee.getId(),
+                        employee.getUsername(),
+                        employee.getName(),
+                        employee.getAddress(),
+                        employee.getEmail()))
+                .collect(Collectors.toList());
     }
 }

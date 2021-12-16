@@ -1,12 +1,17 @@
 package com.example.BookingSystem.Models;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 
 @Entity
 @Table
-@Data
+@RequiredArgsConstructor
+@Getter
+@Setter
 public class Booking {
     @Id
     @SequenceGenerator(
@@ -27,4 +32,6 @@ public class Booking {
     @ManyToOne(optional = false)
     @JoinColumn(nullable = false)
     private final User user;
+    private BookingStatus status;
+    private Long cleanerId;
 }
