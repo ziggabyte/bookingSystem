@@ -1,15 +1,12 @@
 package com.example.BookingSystem.Models;
 
-import lombok.Data;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Entity
 @Table
-@RequiredArgsConstructor
+@AllArgsConstructor
 @Getter
 @Setter
 public class Booking {
