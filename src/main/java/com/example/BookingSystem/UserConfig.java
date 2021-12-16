@@ -30,6 +30,22 @@ public class UserConfig {
                     "admin@clean.com",
                     Permission.ADMIN
             );
+            User testEmployee1 = new User(
+                    "Testemployee1",
+                    "Employeepassword1",
+                    "Employee von Emp",
+                    "Karlskronaplan 5, Malmö",
+                    "employee1@clean.com",
+                    Permission.EMPLOYEE
+            );
+            User testEmployee2 = new User(
+                    "Testemployee2",
+                    "Employeepassword2",
+                    "Emp Loyee",
+                    "Städgatan 12, Arlöv",
+                    "employee2@clean.com",
+                    Permission.EMPLOYEE
+            );
             repository.saveAll( List.of(testCustomer, testAdmin));
         };
     }
