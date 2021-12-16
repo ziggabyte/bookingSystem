@@ -2,6 +2,7 @@ package com.example.BookingSystem.Controllers;
 
 import com.example.BookingSystem.Exceptions.LoginFailureException;
 import com.example.BookingSystem.Exceptions.UserRegistrationException;
+import com.example.BookingSystem.Models.GdprUserData;
 import com.example.BookingSystem.Models.PermissionPackage;
 import com.example.BookingSystem.Models.User;
 import com.example.BookingSystem.Models.UserForClient;
@@ -40,5 +41,10 @@ public class UserController {
     @GetMapping(path = "/getAllEmployees")
     public List<UserForClient> getAllEmployees() {
         return userService.getAllEmployees();
+    }
+
+    @GetMapping(path = "/getGdprUserData/{userId}")
+    public GdprUserData geGdprUserData(@PathVariable Long userId) {
+        return userService.getGdprUserData(userId);
     }
 }
