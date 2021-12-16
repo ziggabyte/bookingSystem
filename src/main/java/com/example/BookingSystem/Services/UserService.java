@@ -2,6 +2,7 @@ package com.example.BookingSystem.Services;
 
 import com.example.BookingSystem.Exceptions.LoginFailureException;
 import com.example.BookingSystem.Exceptions.UserRegistrationException;
+import com.example.BookingSystem.Models.GdprUserData;
 import com.example.BookingSystem.Models.PermissionPackage;
 import com.example.BookingSystem.Models.User;
 import com.example.BookingSystem.Models.UserForClient;
@@ -71,5 +72,16 @@ public class UserService {
                         employee.getAddress(),
                         employee.getEmail()))
                 .collect(Collectors.toList());
+    }
+
+    public GdprUserData getGdprUserData(Long userId) {
+        Optional<User> user = userRepository.findById(userId);
+        return user.map(value -> new GdprUserData(
+                value.getUsername(),
+                value.getName(),
+                value.getAddress(),
+                value.getEmail(),
+                value.getBookings()
+        )).orElse(null);
     }
 }
