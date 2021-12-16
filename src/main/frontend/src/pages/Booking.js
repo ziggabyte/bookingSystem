@@ -1,18 +1,21 @@
 import "../App.css";
 import React from "react";
+import { useState } from "react";
 import { TextField, NativeSelect, FormControl } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { getCurrentDate } from "../functions/cleanPostRequest";
 import makeBooking from "../api/makeBookingApi";
 import { CustomButton } from "../App";
 
 export default function Booking() {
-  const [username, setUsername] = React.useState("");
-  const [email, setEmail] = React.useState("");
-  const [address, setAddress] = React.useState("");
-  const [serviceChoice, setServiceChoice] = React.useState("");
-  const [dateTime, setDateTime] = React.useState("");
+  const { state } = useLocation();
+  const { user } = state;
+
+  const [serviceChoice, setServiceChoice] = useState("");
+  const [dateTime, setDateTime] = useState("");
+
+  console.log("Booking user: " + user);
 
   return (
     <div id="pageDiv">
@@ -20,40 +23,48 @@ export default function Booking() {
       <form
         id="bookingForm"
         onSubmit={(event) =>
-          makeBooking(event, username, email, address, serviceChoice, dateTime)
+          makeBooking(
+            event,
+            user.username,
+            user.email,
+            user.address,
+            serviceChoice,
+            dateTime,
+            user
+          )
         }
       >
         <div>
-          <TextField
+          {/* <TextField
             id="uName"
             label="Name"
             variant="standard"
             color="success"
             sx={{ minWidth: 250 }}
             onChange={(event) => setUsername(event.target.value)}
-          />
+          /> */}
         </div>
 
         <div>
-          <TextField
+          {/*  <TextField
             id="uEmail"
             label="Email"
             variant="standard"
             color="success"
             sx={{ minWidth: 250 }}
             onChange={(event) => setEmail(event.target.value)}
-          />
+          /> */}
         </div>
 
         <div>
-          <TextField
+          {/* <TextField
             id="uAddress"
             label="Address"
             variant="standard"
             color="success"
             sx={{ minWidth: 250 }}
             onChange={(event) => setAddress(event.target.value)}
-          />
+          /> */}
         </div>
 
         <div>

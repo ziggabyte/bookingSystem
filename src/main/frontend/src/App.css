@@ -50,6 +50,16 @@
 }
 
 #profileInfoList li {
+  font-size: 20px;
+}
+
+#profileBookingsList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+#profileBookingsList li {
   border: 0.1vh solid rgba(0, 0, 0, 0.25);
   border-radius: 2vh;
   padding: 0.3vh 2vh 0.7vh 2vh;
