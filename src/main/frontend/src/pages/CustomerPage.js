@@ -5,6 +5,8 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import { CustomButton } from "../App";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import BookingCard from "../components/BookingCard";
+import { Card, CardContent, Typography } from "@mui/material";
 
 export default function CustomerPage() {
   const { state } = useLocation();
@@ -51,9 +53,17 @@ export default function CustomerPage() {
         <li>Email: {user.email}</li>
       </ul>
 
-      <ul id="profileBookingsList">
-        <li></li>
-      </ul>
+      <div id="profileBookingsList">
+        { bookings.length > 0 ? bookings.forEach(booking => {
+            <BookingCard booking={booking} />
+        }) :
+            <Card>
+                <CardContent>
+                    <Typography>You have no bookings</Typography>
+                </CardContent>
+            </Card>
+        }
+      </div>
 
       <form id="customerpageForm" onSubmit={(event) => handleClick(event)}>
         <CustomButton id="formButton" type="submit" variant="contained">
