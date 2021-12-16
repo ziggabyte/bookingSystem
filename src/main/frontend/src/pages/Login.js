@@ -6,6 +6,8 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 export default function Login() {
+  const navigate = useNavigate();
+
   const [username, setUsername] = React.useState("");
   const [password, setPassword] = React.useState("");
 
@@ -28,8 +30,6 @@ export default function Login() {
       .then((response) => rerouteIfSuccessful(response.data))
       .catch((error) => console.log(error));
   };
-
-  const navigate = useNavigate();
 
   const rerouteIfSuccessful = (data) => {
     console.log("loginapi data: " + data);

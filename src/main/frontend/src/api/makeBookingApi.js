@@ -17,26 +17,27 @@ const makeBooking = (
   email,
   address,
   serviceChoice,
-  dateTime
+  dateTime,
+  user
 ) => {
   event.preventDefault();
 
-  console.log("--> makeBooking <--");
-
   cleanService(serviceChoice);
-  //cleanDate(dateTime);
-  //cleanTime(dateTime);
+  cleanDate(dateTime);
+  cleanTime(dateTime);
 
   axios
     .post(
       "http://localhost:8080/api/addBooking",
       {
         name: username,
-        email: email,
         address: address,
         date: "cleanDate",
         time: "cleanTime",
         service: cleanService,
+        user: "",
+        status: "UNASSIGNED",
+        cleanerId: null,
       },
       config
     )
