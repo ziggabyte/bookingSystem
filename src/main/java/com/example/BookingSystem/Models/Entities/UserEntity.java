@@ -33,7 +33,7 @@ public class UserEntity {
     private String name;
     private String address;
     private String email;
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "userEntity", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<BookingEntity> bookingEntities;
     private Permission permission;
 

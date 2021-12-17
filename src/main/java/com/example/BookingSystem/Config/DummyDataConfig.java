@@ -1,7 +1,9 @@
 package com.example.BookingSystem.Config;
 
+import com.example.BookingSystem.Models.Entities.BookingEntity;
 import com.example.BookingSystem.Models.Permission;
 import com.example.BookingSystem.Models.Entities.UserEntity;
+import com.example.BookingSystem.Repositories.BookingRepository;
 import com.example.BookingSystem.Repositories.UserRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
@@ -10,10 +12,10 @@ import org.springframework.context.annotation.Configuration;
 import java.util.List;
 
 @Configuration
-public class UserConfig {
+public class DummyDataConfig {
 
     @Bean
-    CommandLineRunner commandLineRunnerUser(UserRepository repository) {
+    CommandLineRunner commandLineRunner(UserRepository userRepository, BookingRepository bookingRepository) {
         return args -> {
             UserEntity testCustomer = new UserEntity(
                     "Testuser",
@@ -46,7 +48,24 @@ public class UserConfig {
                     "employee2@clean.com",
                     Permission.EMPLOYEE
             );
-            repository.saveAll( List.of(testCustomer, testAdmin, testEmployee1, testEmployee2));
+            userRepository.saveAll( List.of(testCustomer, testAdmin, testEmployee1, testEmployee2));
+            BookingEntity testBooking1 = new BookingEntity(
+                    testCustomer.getName(),
+                    testCustomer.getAddress(),
+                    "12 Januari",
+                    "12:30",
+                    "Basic städning",
+                    testCustomer
+            );
+            BookingEntity testBooking2 = new BookingEntity(
+                    testCustomer.getName(),
+                    testCustomer.getAddress(),
+                    "1 Februari",
+                    "08:30",
+                    "Topp städning",
+                    testCustomer
+            );
+            bookingRepository.saveAll(List.of(testBooking1, testBooking2));
         };
     }
 }
