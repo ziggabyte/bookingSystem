@@ -1,7 +1,8 @@
 import { Button, Card, CardActions, CardContent, Typography } from "@mui/material";
 
-export default function BookingCard({ booking }) {
-    const { name, address, date, time, service } = booking
+export default function BookingCard({ booking, deleteBooking }) {
+    const { bookingId, name, address, date, time, service } = booking
+
     return (
         <Card>
             <CardContent>
@@ -11,7 +12,13 @@ export default function BookingCard({ booking }) {
                 <Typography>{address}</Typography>
             </CardContent>
             <CardActions>
-                <Button color="warning" fullWidth={true} variant="contained">Cancel cleaning</Button>
+                <Button
+                    color="warning"
+                    fullWidth={true}
+                    variant="contained"
+                    onClick={() => deleteBooking(bookingId) }>
+                    Cancel cleaning
+                </Button>
             </CardActions> 
         </Card>
     )
