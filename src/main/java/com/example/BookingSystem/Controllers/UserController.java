@@ -2,10 +2,11 @@ package com.example.BookingSystem.Controllers;
 
 import com.example.BookingSystem.Exceptions.LoginFailureException;
 import com.example.BookingSystem.Exceptions.UserRegistrationException;
-import com.example.BookingSystem.Models.GdprUserData;
+import com.example.BookingSystem.Models.DTOs.GdprUserDto;
+import com.example.BookingSystem.Models.DTOs.NewUserDto;
 import com.example.BookingSystem.Models.PermissionPackage;
-import com.example.BookingSystem.Models.User;
-import com.example.BookingSystem.Models.UserForClient;
+import com.example.BookingSystem.Models.Entities.UserEntity;
+import com.example.BookingSystem.Models.DTOs.UserDto;
 import com.example.BookingSystem.Services.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,22 +30,22 @@ public class UserController {
     }
 
     @PostMapping(path="/addUser")
-    public void addUser(@RequestBody User user) throws UserRegistrationException {
-        userService.addUser(user);
+    public void addUser(@RequestBody NewUserDto newUserDto) throws UserRegistrationException {
+        userService.addUser(newUserDto);
     }
 
-    @GetMapping(path = "/getUser/{userId}")
-    public UserForClient getUser(@PathVariable Long userId) {
+    @GetMapping(path = "/getUserEntity/{userId}")
+    public UserDto getUser(@PathVariable Long userId) {
         return userService.getUser(userId);
     }
 
     @GetMapping(path = "/getAllEmployees")
-    public List<UserForClient> getAllEmployees() {
+    public List<UserDto> getAllEmployees() {
         return userService.getAllEmployees();
     }
 
     @GetMapping(path = "/getGdprUserData/{userId}")
-    public GdprUserData geGdprUserData(@PathVariable Long userId) {
+    public GdprUserDto geGdprUserData(@PathVariable Long userId) {
         return userService.getGdprUserData(userId);
     }
 }

@@ -1,7 +1,7 @@
 package com.example.BookingSystem.Config;
 
 import com.example.BookingSystem.Models.Permission;
-import com.example.BookingSystem.Models.User;
+import com.example.BookingSystem.Models.Entities.UserEntity;
 import com.example.BookingSystem.Repositories.UserRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
@@ -15,14 +15,14 @@ public class UserConfig {
     @Bean
     CommandLineRunner commandLineRunnerUser(UserRepository repository) {
         return args -> {
-            User testCustomer = new User(
+            UserEntity testCustomer = new UserEntity(
                     "Testuser",
                     "Testpassword",
                     "Test Testsson",
                     "Testgatan 12, Malmö",
                     "test@gmail.com",
                     Permission.CUSTOMER);
-            User testAdmin = new User(
+            UserEntity testAdmin = new UserEntity(
                     "Testadmin",
                     "Adminpassword",
                     "Admin Adminovic",
@@ -30,7 +30,7 @@ public class UserConfig {
                     "admin@clean.com",
                     Permission.ADMIN
             );
-            User testEmployee1 = new User(
+            UserEntity testEmployee1 = new UserEntity(
                     "Testemployee1",
                     "Employeepassword1",
                     "Employee von Emp",
@@ -38,7 +38,7 @@ public class UserConfig {
                     "employee1@clean.com",
                     Permission.EMPLOYEE
             );
-            User testEmployee2 = new User(
+            UserEntity testEmployee2 = new UserEntity(
                     "Testemployee2",
                     "Employeepassword2",
                     "Emp Loyee",

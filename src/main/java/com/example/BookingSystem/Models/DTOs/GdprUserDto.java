@@ -1,14 +1,15 @@
-package com.example.BookingSystem.Models;
+package com.example.BookingSystem.Models.DTOs;
 
+import com.example.BookingSystem.Models.Entities.BookingEntity;
 import lombok.Data;
 
 import java.util.List;
 
 @Data
-public class GdprUserData {
+public class GdprUserDto {
     private final String username;
     private final String name;
     private final String address;
     private final String email;
-    private final List<Booking> bookings;
+    private final List<BookingEntity> bookingEntities;
 }
