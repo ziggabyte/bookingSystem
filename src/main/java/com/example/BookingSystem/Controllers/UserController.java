@@ -34,7 +34,7 @@ public class UserController {
         userService.addUser(newUserDto);
     }
 
-    @GetMapping(path = "/getUserEntity/{userId}")
+    @GetMapping(path = "/getUser/{userId}")
     public UserDto getUser(@PathVariable Long userId) {
         return userService.getUser(userId);
     }
