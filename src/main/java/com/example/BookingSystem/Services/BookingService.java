@@ -47,6 +47,7 @@ public class BookingService {
         if (bookingEntityList.isPresent()) {
             return bookingEntityList.get().stream().map(
                     bookingEntity -> new BookingDto(
+                            bookingEntity.getId(),
                             bookingEntity.getName(),
                             bookingEntity.getAddress(),
                             bookingEntity.getDate(),
@@ -69,6 +70,7 @@ public class BookingService {
 
         return bookingEntityList.stream().map(
                 bookingEntity -> new BookingDto(
+                        bookingEntity.getId(),
                         bookingEntity.getName(),
                         bookingEntity.getAddress(),
                         bookingEntity.getDate(),
