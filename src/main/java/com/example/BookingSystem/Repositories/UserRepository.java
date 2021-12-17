@@ -1,6 +1,6 @@
 package com.example.BookingSystem.Repositories;
 
-import com.example.BookingSystem.Models.User;
+import com.example.BookingSystem.Models.Entities.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -8,11 +8,11 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface UserRepository extends JpaRepository<User, Long> {
+public interface UserRepository extends JpaRepository<UserEntity, Long> {
 
-    Optional<User> findUserByUsername(String username);
+    Optional<UserEntity> findUserByUsername(String username);
 
-    Optional<User> findUserByEmail(String email);
+    Optional<UserEntity> findUserByEmail(String email);
 
-    List<User> findAllByPermission(String employee);
+    List<UserEntity> findAllByPermission(String employee);
 }

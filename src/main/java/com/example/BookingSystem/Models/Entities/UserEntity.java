@@ -1,5 +1,7 @@
-package com.example.BookingSystem.Models;
+package com.example.BookingSystem.Models.Entities;
 
+import com.example.BookingSystem.Models.Entities.BookingEntity;
+import com.example.BookingSystem.Models.Permission;
 import com.example.BookingSystem.Utils.PasswordUtils;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,7 +15,7 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-public class User {
+public class UserEntity {
     @Id
     @SequenceGenerator(
             name = "user_sequence",
@@ -32,10 +34,10 @@ public class User {
     private String address;
     private String email;
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Booking> bookings;
+    private List<BookingEntity> bookingEntities;
     private Permission permission;
 
-    public User(String username, String password, String name, String address, String email, Permission permission) {
+    public UserEntity(String username, String password, String name, String address, String email, Permission permission) {
         this.username = username;
         this.salt = PasswordUtils.generateSalt(170).get(); //170 ist för 512 pga fick inte plats med mer i db
         this.password = PasswordUtils.hashPassword(password, salt).get();

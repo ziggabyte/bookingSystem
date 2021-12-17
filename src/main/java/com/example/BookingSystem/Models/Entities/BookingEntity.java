@@ -1,5 +1,6 @@
-package com.example.BookingSystem.Models;
+package com.example.BookingSystem.Models.Entities;
 
+import com.example.BookingSystem.Models.BookingStatus;
 import lombok.*;
 
 import javax.persistence.*;
@@ -9,7 +10,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @NoArgsConstructor
-public class Booking {
+public class BookingEntity {
     @Id
     @SequenceGenerator(
             name = "booking_sequence",
@@ -28,17 +29,17 @@ public class Booking {
     private String service;
     @ManyToOne(optional = false)
     @JoinColumn(nullable = false)
-    private User user;
+    private UserEntity userEntity;
     private BookingStatus status;
     private Long cleanerId;
 
-    public Booking(String name, String address, String date, String time, String service, User user) {
+    public BookingEntity(String name, String address, String date, String time, String service, UserEntity userEntity) {
         this.name = name;
         this.address = address;
         this.date = date;
         this.time = time;
         this.service = service;
-        this.user = user;
+        this.userEntity = userEntity;
         this.status = BookingStatus.UNASSIGNED;
         this.cleanerId = null;
     }
