@@ -41,7 +41,8 @@ public class BookingService {
     }
 
     public List<BookingDto> getBookingsByUserId(Long userId) throws BookingException {
-        Optional<List<BookingEntity>> bookingEntityList = bookingRepository.findByUserId(userId);
+        UserEntity userEntity = userRepository.getById(userId);
+        Optional<List<BookingEntity>> bookingEntityList = bookingRepository.findByUserEntity(userEntity);
 
         if (bookingEntityList.isPresent()) {
             return bookingEntityList.get().stream().map(
