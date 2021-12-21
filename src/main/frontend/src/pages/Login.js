@@ -1,15 +1,18 @@
 import "../App.css";
-import React from "react";
+import React, { useContext } from "react";
 import { TextField } from "@mui/material";
 import { CustomButton } from "../App";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { UserIdContext } from "../context/UserIdContext";
 
 export default function Login() {
   const navigate = useNavigate();
 
   const [username, setUsername] = React.useState("");
   const [password, setPassword] = React.useState("");
+
+  const { setUserId } = useContext(UserIdContext);
 
   const config = {
     headers: {
@@ -31,10 +34,9 @@ export default function Login() {
       .catch((error) => console.log(error));
   };
 
-  const rerouteIfSuccessful = (data) => {
-    console.log("loginapi data: " + data);
-
-    navigate("/customerpage", { state: data });
+  const rerouteIfSuccessful = (responseData) => {
+    setUserId(responseData.userId);
+    navigate("/customerpage");
   };
 
   return (
