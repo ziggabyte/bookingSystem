@@ -7,10 +7,11 @@ import { LocalizationProvider } from "@mui/lab";
 import DateTimePicker from "@mui/lab/DateTimePicker";
 import dayjs from "dayjs";
 import axios from "axios";
-import { UserIdContext } from "../context/UserIdContext";
+import { UserContext } from "../context/UserContext";
 
 export default function Booking() {
-  const { userId } = useContext(UserIdContext);
+    const { userContext } = useContext(UserContext);
+    const { userId } = userContext
 
   const [serviceChoice, setServiceChoice] = useState("");
   const [dateTime, setDateTime] = useState(null);
@@ -72,7 +73,7 @@ export default function Booking() {
       <LocalizationProvider dateAdapter={DateAdapter}>
         <div id="pageDiv">
           <h1>New booking</h1>
-          <p>UserId: {userId}</p>
+          <p>UserId: {userContext}</p>
           <form id="bookingForm" onSubmit={(event) => onSubmit(event)}>
             <Box display={"flex"} flexDirection={"column"}>
               <TextField

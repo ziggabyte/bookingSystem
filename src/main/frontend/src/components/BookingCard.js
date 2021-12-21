@@ -1,5 +1,4 @@
 import {
-  Button,
   Card,
   CardActions,
   CardContent,
@@ -7,8 +6,9 @@ import {
 } from "@mui/material";
 import { CustomButton } from "../App";
 
+
 export default function BookingCard({ booking, deleteBooking }) {
-  const { bookingId, name, address, date, time, service } = booking;
+    const { bookingId, name, address, date, time, service } = booking;
 
   return (
     <Card>
@@ -27,8 +27,8 @@ export default function BookingCard({ booking, deleteBooking }) {
           variant="contained"
           onClick={() => deleteBooking(bookingId)}
         >
-          Cancel cleaning
-        </CustomButton>
+          Avboka städning
+              </CustomButton>
       </CardActions>
     </Card>
   );

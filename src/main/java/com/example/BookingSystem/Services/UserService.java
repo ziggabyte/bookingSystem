@@ -60,7 +60,8 @@ public class UserService {
                 value.getUsername(),
                 value.getName(),
                 value.getAddress(),
-                value.getEmail())).orElse(null);
+                value.getEmail(),
+                value.getPermission())).orElse(null);
     }
 
     public List<UserDto> getAllEmployees() {
@@ -71,7 +72,8 @@ public class UserService {
                         employee.getUsername(),
                         employee.getName(),
                         employee.getAddress(),
-                        employee.getEmail()))
+                        employee.getEmail(),
+                        employee.getPermission()))
                 .collect(Collectors.toList());
     }
 
