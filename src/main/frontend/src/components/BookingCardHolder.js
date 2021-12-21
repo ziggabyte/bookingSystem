@@ -3,7 +3,11 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import BookingCard from "./BookingCard";
 
-export default function BookingCardHolder({ initialBookings, bookingsMessage, noBookingsMessage }) {
+export default function BookingCardHolder({
+  initialBookings,
+  bookingsMessage,
+  noBookingsMessage,
+}) {
   const [bookings, setBookings] = useState(initialBookings);
 
   useEffect(() => setBookings(initialBookings), [initialBookings]);
@@ -29,21 +33,25 @@ export default function BookingCardHolder({ initialBookings, bookingsMessage, no
     <Box>
       {bookings.length > 0 ? (
         <>
-          <Typography>{ bookingsMessage }</Typography>
+          <Typography id="bookingCardTypography">
+            Dina bokade städningar
+          </Typography>
           {bookings.map((booking, index) => {
             return (
-              <>
+              <div id="bookingCard">
                 <BookingCard
                   booking={booking}
                   deleteBooking={deleteBooking}
                   key={index}
                 />
-              </>
+              </div>
             );
           })}
         </>
       ) : (
-        <Typography>{ noBookingsMessage }</Typography>
+        <Typography id="bookingCardTypography">
+          Du har inga bokade städningar
+        </Typography>
       )}
     </Box>
   );
