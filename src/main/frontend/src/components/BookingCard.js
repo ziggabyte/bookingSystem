@@ -1,25 +1,35 @@
-import { Button, Card, CardActions, CardContent, Typography } from "@mui/material";
+import {
+  Button,
+  Card,
+  CardActions,
+  CardContent,
+  Typography,
+} from "@mui/material";
+import { CustomButton } from "../App";
 
 export default function BookingCard({ booking, deleteBooking }) {
-    const { bookingId, name, address, date, time, service } = booking
+  const { bookingId, name, address, date, time, service } = booking;
 
-    return (
-        <Card>
-            <CardContent>
-                <Typography variant="body1">{date} {time}</Typography>
-                <Typography variant="h5">{service}</Typography>
-                <Typography>{name}</Typography>
-                <Typography>{address}</Typography>
-            </CardContent>
-            <CardActions>
-                <Button
-                    color="warning"
-                    fullWidth={true}
-                    variant="contained"
-                    onClick={() => deleteBooking(bookingId) }>
-                    Cancel cleaning
-                </Button>
-            </CardActions> 
-        </Card>
-    )
+  return (
+    <Card>
+      <CardContent>
+        <Typography variant="body1">
+          {date} {time}
+        </Typography>
+        <Typography variant="h5">{service}</Typography>
+        <Typography>{name}</Typography>
+        <Typography>{address}</Typography>
+      </CardContent>
+      <CardActions>
+        <CustomButton
+          color="warning"
+          fullWidth={true}
+          variant="contained"
+          onClick={() => deleteBooking(bookingId)}
+        >
+          Cancel cleaning
+        </CustomButton>
+      </CardActions>
+    </Card>
+  );
 }

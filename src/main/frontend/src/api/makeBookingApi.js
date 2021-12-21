@@ -1,9 +1,5 @@
 import axios from "axios";
-import {
-  cleanService,
-  cleanDate,
-  cleanTime,
-} from "../functions/cleanPostRequest";
+import { cleanService } from "../functions/cleanPostRequest";
 
 const config = {
   headers: {
@@ -17,14 +13,13 @@ const makeBooking = (
   email,
   address,
   serviceChoice,
-  dateTime,
+  date,
+  time,
   user
 ) => {
   event.preventDefault();
 
   cleanService(serviceChoice);
-  cleanDate(dateTime);
-  cleanTime(dateTime);
 
   axios
     .post(
@@ -32,10 +27,10 @@ const makeBooking = (
       {
         name: username,
         address: address,
-        date: "cleanDate",
-        time: "cleanTime",
+        date: date,
+        time: time,
         service: cleanService,
-        user: "",
+        user: "user",
         status: "UNASSIGNED",
         cleanerId: null,
       },

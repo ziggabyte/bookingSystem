@@ -1,10 +1,9 @@
 import "../App.css";
 import React from "react";
-import { Button, TextField } from "@mui/material";
+import { TextField } from "@mui/material";
 import { Link } from "react-router-dom";
 import LogoutIcon from "@mui/icons-material/Logout";
 import registerNewUser from "../api/registerNewUserApi";
-import { styled } from "@mui/material/styles";
 import { CustomButton } from "../App";
 
 export default function Register() {
@@ -83,9 +82,6 @@ export default function Register() {
           </CustomButton>
         </div>
       </form>
-      <Link to="/" id="logoutLink">
-        <LogoutIcon id="logoutIcon" />
-      </Link>
     </div>
   );
 }
