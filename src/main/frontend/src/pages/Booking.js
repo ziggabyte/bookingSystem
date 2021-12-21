@@ -7,10 +7,11 @@ import { LocalizationProvider } from "@mui/lab";
 import DateTimePicker from "@mui/lab/DateTimePicker";
 import dayjs from "dayjs";
 import axios from "axios";
-import { UserIdContext } from "../context/UserIdContext";
+import { UserContext } from "../context/UserContext";
 
 export default function Booking() {
-  const { userId } = useContext(UserIdContext);
+    const { userContext } = useContext(UserContext);
+    const { userId } = userContext
   const [userProfile, setUserProfile] = useState({});
 
   const [serviceChoice, setServiceChoice] = useState("");

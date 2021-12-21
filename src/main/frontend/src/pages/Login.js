@@ -4,7 +4,7 @@ import { TextField } from "@mui/material";
 import { CustomButton } from "../App";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { UserIdContext } from "../context/UserIdContext";
+import { UserContext } from "../context/UserContext";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -12,7 +12,7 @@ export default function Login() {
   const [username, setUsername] = React.useState("");
   const [password, setPassword] = React.useState("");
 
-  const { setUserId } = useContext(UserIdContext);
+  const { setUserContext } = useContext(UserContext);
 
   const config = {
     headers: {
@@ -21,7 +21,7 @@ export default function Login() {
   };
 
   const loginUser = (event) => {
-    event.preventDefault();
+    event.preventDefault()
 
     axios
       .post(
@@ -31,12 +31,12 @@ export default function Login() {
         config
       )
       .then((response) => rerouteIfSuccessful(response.data))
-      .catch((error) => console.log(error));
+      .catch((error) => console.log(error))
   };
 
   const rerouteIfSuccessful = (responseData) => {
-    setUserId(responseData.userId);
-    navigate("/customerpage");
+      setUserContext(responseData);
+      navigate("/userpage")
   };
 
   return (

@@ -4,28 +4,28 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Booking from "./pages/Booking";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
-import CustomerPage from "./pages/CustomerPage";
+import UserPage from "./pages/UserPage";
 import { Button } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import Navbar from "./components/Navbar";
-import { UserIdContext } from "./context/UserIdContext";
+import { UserContext } from "./context/UserContext";
 
 function App() {
-  const [userId, setUserId] = useState("");
+    const [userContext, setUserContext] = useState({});
 
   return (
     <div className="App">
-      <UserIdContext.Provider value={{ userId, setUserId }}>
+    <UserContext.Provider value={{ userContext: userContext, setUserContext: setUserContext }}>
         <Router>
           <Navbar />
           <Routes>
             <Route path="/" element={<Login />} />
             <Route path="/booking" element={<Booking />} />
             <Route path="/register" element={<Register />} />
-            <Route path="/customerpage" element={<CustomerPage />} />
+            <Route path="/userpage" element={<UserPage />} />
           </Routes>
         </Router>
-      </UserIdContext.Provider>
+    </UserContext.Provider>
     </div>
   );
 }
