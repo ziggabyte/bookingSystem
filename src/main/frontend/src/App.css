@@ -32,7 +32,7 @@
   margin: -25vh 0 0 0;
   box-shadow: -2px -1px 15px 8px rgba(50, 50, 50, 0.25);
   border-radius: 5%;
-  max-height: 50vh;
+  max-height: 60vh;
   overflow: overlay;
 }
 
@@ -60,6 +60,12 @@
   box-shadow: 0px 0px 3px 2px rgba(0, 0, 0, 0.1);
 }
 
+#bookingForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 /* Navbar */
 
 #navbar {
@@ -82,36 +88,18 @@
 
 #navbar h3 {
   display: inline;
-  margin: 0 20vh 0 0;
+  margin: 0 10vh 0 0;
   font-size: 25px;
 }
 
 #logoutLink,
-#languageLink,
-#logoutLink:visited,
-#languageLink:visited {
+#logoutLink:visited {
   text-decoration: none;
   padding: 1vh 3vh 1vh 3vh;
 }
 
-#logoutIcon,
-#languageIcon {
+#logoutIcon {
   filter: grayscale(100%);
-}
-
-#themeButton {
-  background: none;
-  margin: -1vh 0 0 0;
-}
-
-#themeIcon {
-  filter: grayscale(100%);
-  background-color: none;
-  margin-top: -15%;
-}
-
-#themeIcon:hover {
-  background: none;
 }
 
 /* Scrollbar */
