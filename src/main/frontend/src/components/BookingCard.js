@@ -1,10 +1,4 @@
-import {
-  Button,
-  Card,
-  CardActions,
-  CardContent,
-  Typography,
-} from "@mui/material";
+import { Card, CardActions, CardContent, Typography } from "@mui/material";
 import { CustomButton } from "../App";
 
 export default function BookingCard({ booking, deleteBooking }) {
