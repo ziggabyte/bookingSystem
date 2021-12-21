@@ -1,6 +1,6 @@
 import "../App.css";
-import React, { useContext, useState } from "react";
-import { Box, TextField, NativeSelect, FormControl } from "@mui/material";
+import React, { useContext, useState, useEffect } from "react";
+import { TextField, NativeSelect, FormControl } from "@mui/material";
 import { CustomButton } from "../App";
 import DateAdapter from "@mui/lab/AdapterDayjs";
 import { LocalizationProvider } from "@mui/lab";
@@ -11,13 +11,29 @@ import { UserIdContext } from "../context/UserIdContext";
 
 export default function Booking() {
   const { userId } = useContext(UserIdContext);
+  const [userProfile, setUserProfile] = useState({});
 
   const [serviceChoice, setServiceChoice] = useState("");
   const [dateTime, setDateTime] = useState(null);
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
-  const [name, setName] = useState("");
-  const [address, setAddress] = useState("");
+  const [name, setName] = useState(userProfile.name);
+  const [address, setAddress] = useState(userProfile.address);
+
+  const config = {
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+    },
+  };
+
+  useEffect(() => {
+    axios
+      .get(`http://localhost:8080/api/getUser/${userId}`, config)
+      .then(({ data }) => {
+        setUserProfile(data);
+      })
+      .catch((error) => console.log(error));
+  }, []);
 
   const setDateAndTime = (newDateTime) => {
     setDateTime(newDateTime);
@@ -72,52 +88,49 @@ export default function Booking() {
       <LocalizationProvider dateAdapter={DateAdapter}>
         <div id="pageDiv">
           <h1>New booking</h1>
-          <p>UserId: {userId}</p>
           <form id="bookingForm" onSubmit={(event) => onSubmit(event)}>
-            <Box display={"flex"} flexDirection={"column"}>
-              <TextField
-                id="uName"
-                label="Name"
-                variant="standard"
+            <TextField
+              id="uName"
+              label={userProfile.name}
+              variant="standard"
+              color="success"
+              sx={{ width: 250 }}
+              onChange={(newValue) => setName(newValue)}
+            />
+            <TextField
+              id="uAddress"
+              label={userProfile.address}
+              variant="standard"
+              color="success"
+              sx={{ width: 250 }}
+              onChange={(newValue) => setAddress(newValue)}
+            />
+            <FormControl variant="standard" sx={{ m: 2, width: 250 }}>
+              <NativeSelect
+                id="sChoice"
+                defaultValue={1}
+                inputProps={{
+                  name: "service",
+                  id: "uncontrolled-native",
+                }}
                 color="success"
-                sx={{ minWidth: 250 }}
-                onChange={(newValue) => setName(newValue)}
-              />
-              <TextField
-                id="uAddress"
-                label="Address"
-                variant="standard"
-                color="success"
-                sx={{ minWidth: 250 }}
-                onChange={(newValue) => setAddress(newValue)}
-              />
-              <FormControl variant="standard" sx={{ m: 2, minWidth: 250 }}>
-                <NativeSelect
-                  id="sChoice"
-                  defaultValue={1}
-                  inputProps={{
-                    name: "service",
-                    id: "uncontrolled-native",
-                  }}
-                  color="success"
-                  onChange={(newValue) => setServiceChoice(newValue)}
-                >
-                  <option value="Basic städning">Basic städning</option>
-                  <option value="Topp städning">Topp Städning</option>
-                  <option value="Diamant städning">Diamant städning</option>
-                  <option value="Fönstertvätt">Fönstertvätt</option>
-                </NativeSelect>
-              </FormControl>
-              <DateTimePicker
-                ampm={false}
-                ampmInClock={false}
-                label="Time and date"
-                value={dateTime}
-                onChange={(newDateTime) => setDateAndTime(newDateTime)}
-                renderInput={(params) => <TextField {...params} />}
-                minDateTime={dayjs()}
-              />
-            </Box>
+                onChange={(newValue) => setServiceChoice(newValue)}
+              >
+                <option value="Basic städning">Basic Cleaning</option>
+                <option value="Topp städning">Topp Cleaning</option>
+                <option value="Diamant städning">Diamond Cleaning</option>
+                <option value="Fönstertvätt">Windowwash</option>
+              </NativeSelect>
+            </FormControl>
+            <DateTimePicker
+              ampm={false}
+              ampmInClock={false}
+              label="Time and date"
+              value={dateTime}
+              onChange={(newDateTime) => setDateAndTime(newDateTime)}
+              renderInput={(params) => <TextField {...params} />}
+              minDateTime={dayjs()}
+            />
             <div>
               <CustomButton id="formButton" type="submit" variant="contained">
                 Confirm

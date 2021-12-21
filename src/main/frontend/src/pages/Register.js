@@ -1,8 +1,6 @@
 import "../App.css";
 import React from "react";
 import { TextField } from "@mui/material";
-import { Link } from "react-router-dom";
-import LogoutIcon from "@mui/icons-material/Logout";
 import registerNewUser from "../api/registerNewUserApi";
 import { CustomButton } from "../App";
 

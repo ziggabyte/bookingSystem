@@ -11,7 +11,7 @@ export default function CustomerPage() {
 
   const { userId } = useContext(UserIdContext);
 
-  const [userProfile, setUser] = useState({});
+  const [userProfile, setUserProfile] = useState({});
   const [bookings, setBookings] = useState({});
 
   const config = {
@@ -24,7 +24,7 @@ export default function CustomerPage() {
     axios
       .get(`http://localhost:8080/api/getUser/${userId}`, config)
       .then(({ data }) => {
-        setUser(data);
+        setUserProfile(data);
       })
       .catch((error) => console.log(error));
 
