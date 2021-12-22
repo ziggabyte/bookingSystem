@@ -29,22 +29,26 @@ export default function BookingCardHolder({ initialBookings, bookingsMessage, no
     <Box>
       {bookings.length > 0 ? (
         <>
-          <Typography>{ bookingsMessage }</Typography>
+          <Typography id="bookingCardTypography">
+            {bookingsMessage}
+          </Typography>
           {bookings.map((booking, index) => {
             return (
-              <>
+              <div id="bookingCard">
                 <BookingCard
                     booking={booking}
                     deleteBooking={deleteBooking}
                     key={index}
                     isAdmin={isAdmin}
                 />
-              </>
+              </div>
             );
           })}
         </>
       ) : (
-        <Typography>{ noBookingsMessage }</Typography>
+        <Typography id="bookingCardTypography">
+          {noBookingsMessage}
+        </Typography>
       )}
     </Box>
   );
