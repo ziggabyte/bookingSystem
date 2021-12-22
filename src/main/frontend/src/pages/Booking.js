@@ -43,7 +43,6 @@ export default function Booking() {
   };
 
   const onSuccess = (response) => {
-    console.log(response);
     alert(
       "Thank you " +
         name +
@@ -91,20 +90,20 @@ export default function Booking() {
           <h1>New booking</h1>
           <form id="bookingForm" onSubmit={(event) => onSubmit(event)}>
             <TextField
-              id="uName"
-              label={userProfile.name}
-              variant="standard"
-              color="success"
-              sx={{ width: 250 }}
-              onChange={(newValue) => setName(newValue)}
+                id="uName"
+                label="Namn"
+                variant="standard"
+                color="success"
+                sx={{ width: 250 }}
+                onChange={(event) => setName(event.target.value)}
             />
             <TextField
-              id="uAddress"
-              label={userProfile.address}
-              variant="standard"
-              color="success"
-              sx={{ width: 250 }}
-              onChange={(newValue) => setAddress(newValue)}
+                id="uAddress"
+                label="Adress"
+                variant="standard"
+                color="success"
+                sx={{ width: 250 }}
+                onChange={(event) => setAddress(event.target.value)}
             />
             <FormControl variant="standard" sx={{ m: 2, width: 250 }}>
               <NativeSelect
@@ -115,7 +114,7 @@ export default function Booking() {
                   id: "uncontrolled-native",
                 }}
                 color="success"
-                onChange={(newValue) => setServiceChoice(newValue)}
+                onChange={(event) => setServiceChoice(event.target.value)}
               >
                 <option value="Basic städning">Basic Cleaning</option>
                 <option value="Topp städning">Topp Cleaning</option>
@@ -128,7 +127,7 @@ export default function Booking() {
               ampmInClock={false}
               label="Time and date"
               value={dateTime}
-              onChange={(newDateTime) => setDateAndTime(newDateTime)}
+              onChange={(newValue) => setDateAndTime(newValue)}
               renderInput={(params) => <TextField {...params} />}
               minDateTime={dayjs()}
             />

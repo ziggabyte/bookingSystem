@@ -2,6 +2,7 @@ package com.example.BookingSystem.Controllers;
 
 import com.example.BookingSystem.Exceptions.BookingException;
 import com.example.BookingSystem.Models.DTOs.BookingDto;
+import com.example.BookingSystem.Models.DTOs.NewBookingDto;
 import com.example.BookingSystem.Services.BookingService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,8 +19,8 @@ public class BookingController {
     private final BookingService bookingService;
 
     @PostMapping( path = "/addBooking")
-    public void addBooking(@RequestBody BookingDto bookingDto) throws BookingException {
-        bookingService.addNewBooking(bookingDto);
+    public void addBooking(@RequestBody NewBookingDto newBookingDto) throws BookingException {
+        bookingService.addNewBooking(newBookingDto);
     }
 
     @PostMapping(path = "/assignBooking")

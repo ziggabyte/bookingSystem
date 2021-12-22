@@ -2,6 +2,7 @@ package com.example.BookingSystem.Services;
 
 import com.example.BookingSystem.Exceptions.BookingException;
 import com.example.BookingSystem.Models.DTOs.BookingDto;
+import com.example.BookingSystem.Models.DTOs.NewBookingDto;
 import com.example.BookingSystem.Models.Entities.BookingEntity;
 import com.example.BookingSystem.Models.BookingStatus;
 import com.example.BookingSystem.Models.Entities.UserEntity;
@@ -23,16 +24,16 @@ public class BookingService {
     private final BookingRepository bookingRepository;
     private final UserRepository userRepository;
 
-    public void addNewBooking(BookingDto bookingDto) throws BookingException {
-        Optional<UserEntity> user = userRepository.findById(bookingDto.getUserId());
+    public void addNewBooking(NewBookingDto newBookingDto) throws BookingException {
+        Optional<UserEntity> user = userRepository.findById(newBookingDto.getUserId());
 
         if (user.isPresent()) {
             bookingRepository.save(new BookingEntity(
-                    bookingDto.getName(),
-                    bookingDto.getAddress(),
-                    bookingDto.getDate(),
-                    bookingDto.getTime(),
-                    bookingDto.getService(),
+                    newBookingDto.getName(),
+                    newBookingDto.getAddress(),
+                    newBookingDto.getDate(),
+                    newBookingDto.getTime(),
+                    newBookingDto.getService(),
                     user.get()
                     ));
         } else {
@@ -53,7 +54,9 @@ public class BookingService {
                             bookingEntity.getDate(),
                             bookingEntity.getTime(),
                             bookingEntity.getService(),
-                            bookingEntity.getUserEntity().getId()
+                            bookingEntity.getUserEntity().getId(),
+                            bookingEntity.getStatus(),
+                            bookingEntity.getCleanerId()
                     )
             ).collect(Collectors.toList());
         } else {
@@ -76,7 +79,9 @@ public class BookingService {
                         bookingEntity.getDate(),
                         bookingEntity.getTime(),
                         bookingEntity.getService(),
-                        bookingEntity.getUserEntity().getId()
+                        bookingEntity.getUserEntity().getId(),
+                        bookingEntity.getStatus(),
+                        bookingEntity.getCleanerId()
                 )
         ).collect(Collectors.toList());
     }
@@ -85,5 +90,6 @@ public class BookingService {
         BookingEntity bookingEntity = bookingRepository.getById(bookingId);
         bookingEntity.setStatus(BookingStatus.ASSIGNED);
         bookingEntity.setCleanerId(cleanerId);
+        bookingRepository.save(bookingEntity);
     }
 }

@@ -4,6 +4,7 @@ import com.example.BookingSystem.Exceptions.LoginFailureException;
 import com.example.BookingSystem.Exceptions.UserRegistrationException;
 import com.example.BookingSystem.Models.DTOs.GdprUserDto;
 import com.example.BookingSystem.Models.DTOs.NewUserDto;
+import com.example.BookingSystem.Models.Permission;
 import com.example.BookingSystem.Models.PermissionPackage;
 import com.example.BookingSystem.Models.Entities.UserEntity;
 import com.example.BookingSystem.Models.DTOs.UserDto;
@@ -65,7 +66,7 @@ public class UserService {
     }
 
     public List<UserDto> getAllEmployees() {
-        List<UserEntity> employees = userRepository.findAllByPermission("EMPLOYEE");
+        List<UserEntity> employees = userRepository.findAllByPermission(Permission.EMPLOYEE);
         return employees.stream()
                 .map(employee -> new UserDto(
                         employee.getId(),

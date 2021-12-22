@@ -16,6 +16,7 @@ export default function AdminPageContent({ bookings, userProfile }) {
                 bookingsMessage="Alla bokade städningar"
                 initialBookings={bookings}
                 noBookingsMessage="Det finns inga bokade städningar"
+                isAdmin={true}
             />
         </>
     )

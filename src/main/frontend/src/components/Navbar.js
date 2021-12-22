@@ -1,12 +1,13 @@
 import React, { useContext, useEffect, useState } from "react";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { Link } from "react-router-dom";
+import { HouseRounded } from "@mui/icons-material";
 import CookieIcon from "@mui/icons-material/Cookie";
-import { UserIdContext } from "../context/UserIdContext";
+import { UserContext } from "../context/UserContext";
 import axios from "axios";
 
 export default function Navbar() {
-  const { userId } = useContext(UserIdContext);
+  const { userId } = useContext(UserContext);
   const [gdpr, setGdpr] = useState("");
 
   const config = {
@@ -40,6 +41,11 @@ export default function Navbar() {
       <ul id="navbarList">
         <li>
           <h3>Städafint AB</h3>
+              </li>
+              <li>
+          <Link to="/userpage" id="logoutLink">
+            <HouseRounded id="logoutIcon" />
+          </Link>
         </li>
 
         <li>
