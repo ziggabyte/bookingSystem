@@ -8,18 +8,23 @@ import DateTimePicker from "@mui/lab/DateTimePicker";
 import dayjs from "dayjs";
 import axios from "axios";
 import { UserContext } from "../context/UserContext";
+import { useNavigate } from "react-router-dom";
+import BookedCleaningDialog from "../components/BookedCleaningDialog";
 
 export default function Booking() {
+    const navigate = useNavigate()
+
     const { userContext } = useContext(UserContext);
     const { userId } = userContext
-  const [userProfile, setUserProfile] = useState({});
 
+  const [userProfile, setUserProfile] = useState({});
   const [serviceChoice, setServiceChoice] = useState("");
   const [dateTime, setDateTime] = useState(null);
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
   const [name, setName] = useState(userProfile.name);
-  const [address, setAddress] = useState(userProfile.address);
+    const [address, setAddress] = useState(userProfile.address);
+    const [dialogOpen, setDialogOpen] = useState(false)
 
   const config = {
     headers: {
@@ -40,22 +45,6 @@ export default function Booking() {
     setDateTime(newDateTime);
     setDate(dayjs(dateTime).format("DD/MM YYYY").toString());
     setTime(dayjs(dateTime).format("HH:mm").toString());
-  };
-
-  const onSuccess = (response) => {
-    alert(
-      "Thank you " +
-        name +
-        " for your reservation of " +
-        serviceChoice +
-        " at " +
-        address +
-        " on " +
-        date +
-        " at " +
-        time
-    );
-    window.location.reload(false);
   };
 
   const onSubmit = (event) => {
@@ -79,9 +68,16 @@ export default function Booking() {
         },
         config
       )
-      .then((res) => onSuccess(res))
+        .then(() => {
+          setDialogOpen(true)
+        })
       .catch((err) => console.log(err));
   };
+    
+    const handleClose = () => {
+        setDialogOpen(false)
+        navigate("/userpage")
+    }
 
   return (
     <>
@@ -136,7 +132,14 @@ export default function Booking() {
                 Confirm
               </CustomButton>
             </div>
-          </form>
+                  </form>
+                  <BookedCleaningDialog
+                      serviceChoice={serviceChoice}
+                      date={date}
+                      time={time}
+                      open={dialogOpen}
+                      onClose={handleClose}
+                  />
         </div>
       </LocalizationProvider>
     </>
