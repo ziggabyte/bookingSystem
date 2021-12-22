@@ -1,14 +1,15 @@
 import React, { useContext, useEffect, useState } from "react";
 import LogoutIcon from "@mui/icons-material/Logout";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { HouseRounded } from "@mui/icons-material";
 import CookieIcon from "@mui/icons-material/Cookie";
 import { UserContext } from "../context/UserContext";
 import axios from "axios";
 
 export default function Navbar() {
-  const { userId } = useContext(UserContext);
-  const [gdpr, setGdpr] = useState("");
+  const { userId, isLoggedIn, setIsLoggedIn, setUserContext } = useContext(UserContext);
+    const [gdpr, setGdpr] = useState("");
+    const navigate = useNavigate()
 
   const config = {
     headers: {
@@ -35,6 +36,13 @@ export default function Navbar() {
       alert("GDPR: ", gdpr);
     }
   };
+    
+    const handleSignout = (event) => {
+        event.preventDefault()
+        setIsLoggedIn(false)
+        setUserContext({})
+        navigate("/")
+  }
 
   return (
     <div id="navbar">
@@ -43,19 +51,17 @@ export default function Navbar() {
           <h3>Städafint AB</h3>
               </li>
               <li>
-          <Link to="/userpage" id="logoutLink">
+          <Link to={isLoggedIn ? "/userpage" : "/"} id="logoutLink">
             <HouseRounded id="logoutIcon" />
           </Link>
         </li>
 
         <li>
-          <CookieIcon id="gdprIcon" onClick={(event) => handleClick(event)} />
+            <CookieIcon id="gdprIcon" onClick={(event) => handleClick(event)} />
         </li>
 
         <li>
-          <Link to="/" id="logoutLink">
-            <LogoutIcon id="logoutIcon" />
-          </Link>
+            <LogoutIcon id="logoutIcon" onClick={ (event) => handleSignout(event)}/>
         </li>
       </ul>
     </div>

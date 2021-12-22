@@ -12,17 +12,23 @@ import { UserContext } from "./context/UserContext";
 
 function App() {
     const [userContext, setUserContext] = useState({});
+    const [isLoggedIn, setIsLoggedIn] = useState(false)
 
   return (
     <div className="App">
-    <UserContext.Provider value={{ userContext: userContext, setUserContext: setUserContext }}>
+          <UserContext.Provider value={{
+              userContext: userContext,
+              setUserContext: setUserContext,
+              isLoggedIn: isLoggedIn,
+              setIsLoggedIn: setIsLoggedIn
+          }}>
         <Router>
           <Navbar />
           <Routes>
             <Route path="/" element={<Login />} />
-            <Route path="/booking" element={<Booking />} />
+            <Route path={isLoggedIn ? "/booking" : "/"} element={isLoggedIn ? <Booking /> : <Login />} />
             <Route path="/register" element={<Register />} />
-            <Route path="/userpage" element={<UserPage />} />
+            <Route path={isLoggedIn ? "/userpage" : "/"} element={isLoggedIn ? <UserPage /> : <Login />} />
           </Routes>
         </Router>
     </UserContext.Provider>
