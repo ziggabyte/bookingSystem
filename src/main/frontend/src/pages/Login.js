@@ -12,7 +12,7 @@ export default function Login() {
   const [username, setUsername] = React.useState("");
   const [password, setPassword] = React.useState("");
 
-  const { setUserContext } = useContext(UserContext);
+    const { setUserContext, setIsLoggedIn } = useContext(UserContext)
 
   const config = {
     headers: {
@@ -34,8 +34,10 @@ export default function Login() {
       .catch((error) => console.log(error))
   };
 
-  const rerouteIfSuccessful = (responseData) => {
+    const rerouteIfSuccessful = (responseData) => {
       setUserContext(responseData);
+      setIsLoggedIn(true)
+
       navigate("/userpage")
   };
 
