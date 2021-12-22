@@ -6,7 +6,7 @@ const config = {
   },
 };
 
-const registerNewUser = (event, username, password, name, address, email) => {
+const registerNewUser = (event, username, password, name, address, email, permission) => {
   event.preventDefault();
 
   axios
@@ -18,6 +18,7 @@ const registerNewUser = (event, username, password, name, address, email) => {
         name: name,
         address: address,
         email: email,
+        permission: permission
       },
       config
     )
