@@ -29,6 +29,7 @@ export default function CustomerPageContent({ bookings, userProfile }) {
           <BookingCardHolder
               bookingsMessage="Dina bokade städningar"
               initialBookings={bookings}
+              isAdmin={false}
               noBookingsMessage="Du har inga bokade städningar"
           />
     </>
