@@ -16,7 +16,7 @@ export default function Register() {
       <h1>Register</h1>
       <form
         onSubmit={(event) =>
-          registerNewUser(event, username, password, name, address, email)
+          registerNewUser(event, username, password, name, address, email, "CUSTOMER")
         }
       >
         <div>
