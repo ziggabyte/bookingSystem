@@ -9,6 +9,7 @@ import { Button } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import Navbar from "./components/Navbar";
 import { UserContext } from "./context/UserContext";
+import CookieConsent from "react-cookie-consent";
 
 function App() {
     const [userContext, setUserContext] = useState({});
@@ -16,22 +17,23 @@ function App() {
 
   return (
     <div className="App">
-          <UserContext.Provider value={{
-              userContext: userContext,
-              setUserContext: setUserContext,
-              isLoggedIn: isLoggedIn,
-              setIsLoggedIn: setIsLoggedIn
-          }}>
-        <Router>
-          <Navbar />
-          <Routes>
-            <Route path="/" element={<Login />} />
-            <Route path={isLoggedIn ? "/booking" : "/"} element={isLoggedIn ? <Booking /> : <Login />} />
-            <Route path="/register" element={<Register />} />
-            <Route path={isLoggedIn ? "/userpage" : "/"} element={isLoggedIn ? <UserPage /> : <Login />} />
-          </Routes>
-        </Router>
-    </UserContext.Provider>
+        <UserContext.Provider value={{
+                userContext: userContext,
+                setUserContext: setUserContext,
+                isLoggedIn: isLoggedIn,
+                setIsLoggedIn: setIsLoggedIn
+            }}>
+            <Router>
+            <Navbar />
+            <Routes>
+                <Route path="/" element={<Login />} />
+                <Route path={isLoggedIn ? "/booking" : "/"} element={isLoggedIn ? <Booking /> : <Login />} />
+                <Route path="/register" element={<Register />} />
+                <Route path={isLoggedIn ? "/userpage" : "/"} element={isLoggedIn ? <UserPage /> : <Login />} />
+            </Routes>
+            </Router>
+            <CookieConsent buttonText="Jag förstår!">Denna hemsida använder cookies!</CookieConsent>
+        </UserContext.Provider>
     </div>
   );
 }

@@ -84,8 +84,7 @@ public class UserService {
                 value.getUsername(),
                 value.getName(),
                 value.getAddress(),
-                value.getEmail(),
-                value.getBookingEntities()
+                value.getEmail()
         )).orElse(null);
     }
 }
