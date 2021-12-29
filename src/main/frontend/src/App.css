@@ -80,18 +80,18 @@
 
 #navbar {
   height: 20vh;
+  width: 55vh;
   margin: -100vh 0 0 0;
-  justify-content: inherit;
-  align-items: inherit;
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  align-items: flex-start;
+  padding-top: 3vh;
   text-align: inherit;
   position: absolute;
 }
 
 #navbarList {
-  padding: 0 0 0 0;
-}
-
-#navbarList li {
   display: inline;
   margin: 0 1vh -20% 1vh;
 }
