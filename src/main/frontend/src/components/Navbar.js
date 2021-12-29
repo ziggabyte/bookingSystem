@@ -1,40 +1,35 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { Link, useNavigate } from "react-router-dom";
 import { HouseRounded } from "@mui/icons-material";
 import CookieIcon from "@mui/icons-material/Cookie";
 import { UserContext } from "../context/UserContext";
 import axios from "axios";
+import GdprDataDialog from "./GdprDataDialog";
 
 export default function Navbar() {
-  const { userId, isLoggedIn, setIsLoggedIn, setUserContext } = useContext(UserContext);
-    const [gdpr, setGdpr] = useState("");
+    const { isLoggedIn, setIsLoggedIn, setUserContext, userContext } = useContext(UserContext);
+    const { userId } = userContext
+    const [gdprData, setGdprData] = useState("");
+    const [dialogOpen, setDialogOpen] = useState(false)
+
     const navigate = useNavigate()
 
-  const config = {
-    headers: {
-      "Access-Control-Allow-Origin": "*",
-    },
-  };
+    const config = {
+        headers: {
+        "Access-Control-Allow-Origin": "*",
+        },
+    };
 
-  useEffect(() => {
-    axios
+    const handleGdprClick = () => {
+      axios
       .get(`http://localhost:8080/api/getGdprUserData/${userId}`, config)
-      .then(({ data }) => {
-        setGdpr(data);
-        console.log("gdpr data: ", data);
+          .then(({ data }) => {
+            setGdprData(data);
+            setDialogOpen(true)
       })
-      .catch((error) => console.log("error: ", error));
-  }, []);
+      .catch((error) => console.log("error: ", error))
 
-  const handleClick = (event) => {
-    event.preventDefault();
-
-    if (gdpr.length < 2) {
-      alert("GDPR coming soon!");
-    } else {
-      alert("GDPR: ", gdpr);
-    }
   };
     
     const handleSignout = (event) => {
@@ -42,7 +37,11 @@ export default function Navbar() {
         setIsLoggedIn(false)
         setUserContext({})
         navigate("/")
-  }
+    }
+    
+    const handleClose = () => {
+        setDialogOpen(false)
+    }
 
   return (
     <div id="navbar">
@@ -50,20 +49,29 @@ export default function Navbar() {
         <li>
           <h3>Städafint AB</h3>
               </li>
-              <li>
-          <Link to={isLoggedIn ? "/userpage" : "/"} id="logoutLink">
-            <HouseRounded id="logoutIcon" />
-          </Link>
-        </li>
+              {isLoggedIn && 
+                <>
+                    <li>
+                    <Link to="/userpage" id="logoutLink">
+                        <HouseRounded id="logoutIcon" />
+                    </Link>
+                    </li>
 
-        <li>
-            <CookieIcon id="gdprIcon" onClick={(event) => handleClick(event)} />
-        </li>
+                    <li>
+                        <CookieIcon id="gdprIcon" onClick={handleGdprClick} />
+                    </li>
 
-        <li>
-            <LogoutIcon id="logoutIcon" onClick={ (event) => handleSignout(event)}/>
-        </li>
-      </ul>
+                    <li>
+                        <LogoutIcon id="logoutIcon" onClick={ (event) => handleSignout(event)}/>
+                    </li>
+                </>}
+        
+          </ul>
+          <GdprDataDialog
+              open={dialogOpen}
+              onClose={handleClose}
+              userData={gdprData}
+          />
     </div>
   );
 }
